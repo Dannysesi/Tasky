@@ -28,23 +28,18 @@ To run this project locally, follow these steps:
 
 
 2. Contributing:
-
-If you'd like to contribute to this project, please follow these steps:
-
-```bash
-# Fork the repository
-git clone https://github.com/Dannysesi/Tasky
-cd BookHaven
-
-# Create a new branch for your feature
-git checkout -b feature-name
-
-# Make your changes and commit them
-git add .
-git commit -m 'Add some feature'
-
-# Push to the branch
-git push origin feature-name
+   If you'd like to contribute to this project, please follow these steps:
+   ```bash
+   # Fork the repository
+   git clone https://github.com/Dannysesi/Tasky
+   cd task
+   # Create a new branch for your feature
+   git checkout -b feature-name
+   # Make your changes and commit them
+   git add .
+   git commit -m 'Add some feature'
+   # Push to the branch
+   git push origin feature-name
 
 
 ## License
