@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="content-section">
+    <div style="text-align: center;">
+        <img src="{{ user.profile.image.url }}" style="border-radius: 10px; height: 300px; width: 300px; margin-top: 50px;" alt="User Profile Image">
+        <div style="text-align: center;">
+            <h2>{{ user.username|capfirst }}</h2>
+            <p>{{ user.email }}</p>
+        </div>
+    </div>
+    <div class="role" style="font-size: 1.5rem; text-align: center;">
+        {% if user_roles.is_admin %}
+            <p class="text-success">You are an admin.</p>
+        {% elif user_roles.is_team_lead %}
+            <p class="text-primary">You are a team lead.</p>
+        {% elif user_roles.is_team_member %}
+            <p class="text-info">You are a team member.</p>
+        {% endif %} 
+    </div>
+    <form method="POST" enctype="multipart/form-data" id="form" class="container">
+        {% csrf_token %}
+        <legend class="mb-4" style="font-size: 1.5em; font-weight: bold; color: #333;">Profile Info</legend>
+        <div class="form-group row">
+            <label for="first_name" class="col-sm-3 col-form-label">First_Name:</label>
+            <div class="col-sm-8">
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="bi bi-person-check" aria-hidden="true"></i></div>
+                    {{ u_form.first_name }}
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="last_name" class="col-sm-3 col-form-label">Last_Name:</label>
+            <div class="col-sm-8">
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="bi bi-person-check" aria-hidden="true"></i></div>
+                    {{ u_form.last_name }}
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="username" class="col-sm-3 col-form-label">Username:</label>
+            <div class="col-sm-8">
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="bi bi-person-check" aria-hidden="true"></i></div>
+                    {{ u_form.username }}
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="email" class="col-sm-3 col-form-label">Email:</label>
+            <div class="col-sm-9">
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-envelope" aria-hidden="true"></i></div>
+                    {{ u_form.email }}
+                </div>
+            </div>
+        </div>
+        <div style="margin-bottom: 30px; color: #fff; text-decoration: none;">
+            {{ p_form }}
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+<style>
+    *{
+      box-sizing: border-box;
+      font-family: "Merriweather Sans", sans-serif;
+    }
+
+    #form{
+      color: whitesmoke;
+      background-color: #6499E9;
+      border-radius: 5px;
+      width: 600px;
+      padding: 40px;
+      margin: auto;
+      -webkit-box-shadow: -1px 3px 18px 0px rgba(0, 0, 0, 0.75);
+      -moz-box-shadow: -1px 3px 18px 0px rgba(0, 0, 0, 0.75);
+      box-shadow: -1px 3px 18px 0px rgba(0, 0, 0, 0.75); 
+    }
+
+    #form p{
+      font-size: 0.9em;
+    }
+
+    #form label {
+        color: black;
+    }
+
+    #form button{
+      width: 100%;
+      text-align: center;
+      color: grey;
+      background-color: whitesmoke;
+      margin-top: 20px;
+      border: 1px solid rgba(0, 0, 0, 0.4);
+    }
+
+    @media (max-width: 767px) {
+        #form {
+          width: auto;
+          margin-left: 10px;
+          margin-right: 10px;
+          align-content: center;
+          align-items: center;
+        }
+    }
+
+  </style>
+{% endblock %}
