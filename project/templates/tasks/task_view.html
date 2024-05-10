@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <div class="row" style="margin-top: 70px; margin-bottom: 30px;">
+        {% for task in tasks %}
+        <div class="col-lg-4" style="margin-bottom: 30px;">
+            <div class="card card-margin" style="max-height: 300px; min-height: 300px;">
+                <div class="card-header no-border">
+                    <h4 class="card-title">{{ task.title|capfirst }}</h4>
+                </div>
+                <div class="card-body">
+                <p class="card-text">{{ task.description|capfirst }}</p>
+                </div>
+                <div class="card-footer no-border">
+                    <a href="{% url 'task_detail' task.id %}" class="btn btn-outline">View Task Details</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div style="padding: 20px; margin-bottom: 50px; text-align: right;">
+        <a href="{% url 'task-create' %}" class="btn btn-primary" style="text-decoration: none;">Add new Task</a>
+    </div>
+</div>
+
+<style>
+    body{
+        background: #98e4ff2c;
+        margin-top:20px;
+    }
+
+    .card-margin {
+        margin-bottom: 1.875rem;
+    }
+
+    .card {
+        border: 0;
+        box-shadow: 0px 0px 10px 0px rgba(82, 63, 105, 0.1);
+        -webkit-box-shadow: 0px 0px 10px 0px rgba(82, 63, 105, 0.1);
+        -moz-box-shadow: 0px 0px 10px 0px rgba(82, 63, 105, 0.1);
+        -ms-box-shadow: 0px 0px 10px 0px rgba(82, 63, 105, 0.1);
+    }
+    .card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+        background-color: #ffffff;
+        background-clip: border-box;
+        border: 1px solid #e6e4e9;
+        border-radius: 8px;
+    }
+
+    .card .card-header.no-border {
+        border: 0;
+    }
+    .card .card-header {
+        background: none;
+        padding: 1 0.9375rem;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        min-height: 50px;
+    }
+    .card-header:first-child {
+        border-radius: calc(8px - 1px) calc(8px - 1px) 0 0;
+    }
+
+    .card .card-footer.no-border {
+        border: 0;
+    }
+
+    .card .card-footer {
+        background: none;
+        padding: 1 0.9375rem;
+        font-weight: 500;
+        display: flex;
+        min-height: 50px;
+    }
+</style>
+{% endblock content %}

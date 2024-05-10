@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <div class="card" style="margin-top: 70px; margin-bottom: 50vh;">
+        <h1 class="card-header">{{ task.title|capfirst }}</h1>
+        <div class="card-body">
+            <p class="card-text">Created By: {{ task.created_by|capfirst }}</p>
+            <p class="card-text">Description: {{ task.description|lower|capfirst }}</p>
+            <p class="card-text">Deadline Date: {{ task.deadline }}</p>
+            <p class="card-text">Status: {{ task.status }}</p>
+            <p class="card-text">Incident Type: {{task.incident_types|capfirst}}</p>
+            <p class="card-text">Assigned To: {{ task.assigned_to }}</p>
+        </div>
+        <div class="card-footer">
+            {% if task.created_by == user or task.assigned_to == user %}
+            <a href="{% url 'task_update' pk=task.pk %}" class="btn btn-outline-primary">Update</a>
+            <a href="{% url 'task-delete' pk=task.pk %}" class="btn btn-outline-danger">Delete</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock content %}

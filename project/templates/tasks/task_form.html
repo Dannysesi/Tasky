@@ -1,0 +1,178 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="content-section">
+  <form method="POST" enctype="multipart/form-data" class="container" id="form">
+    {% csrf_token %}
+    <fieldset class="form-group" style="padding: 30px;">
+      <legend class="mb-4" style="font-size: 1.5em; font-weight: bold; color: #000000;">
+        {% if is_create %}
+        Create Task
+        {% else %}
+        Update Task
+        {% endif %}
+      </legend>
+      <div class="form-group row">
+        <label for="title" class="col-sm-4 col-form-label">Title:</label>
+        <div class="col-sm-7">
+            <div class="input-group">
+                <div class="input-group-addon"><i class="bi bi-journal" aria-hidden="true"></i></div>
+                {{ form.title }}
+            </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="description" class="col-sm-4 col-form-label">Description:</label>
+        <div class="col-sm-7">
+            <div class="input-group">
+                {{ form.description }}
+            </div>
+        </div>
+      </div>
+      {% if is_create %}
+      <div class="form-group row">
+        <label for="{{ form.deadline.id_for_label }}" class="col-sm-4" style="color: #000000;">Deadline:</label>
+        <input type="date" name="{{ form.deadline.html_name }}" class="col-sm-7" id="{{ form.deadline.auto_id }}" value="{{ form.instance.deadline|default_if_none:'' }}">
+      </div>
+      <div class="form-group row">
+        <label for="status" class="col-sm-4 col-form-label">Status:</label>
+        <div class="col-sm-7">
+            <div class="input-group">
+                <div class="input-group-addon"><i class="bi bi-asterisk"></i></div>
+                {{ form.status }}
+            </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="incident_types" class="col-sm-4 col-form-label">Incident Type:</label>
+        <div class="col-sm-7">
+            <div class="input-group">
+                <div class="input-group-addon"><i class="bi bi-cone"></i></div>
+                {{ form.incident_types }}
+            </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="assigned_to" class="col-sm-4 col-form-label">Assign To User:</label>
+        <div class="col-sm-7">
+            <div class="input-group">
+                <div class="input-group-addon"><i class="bi bi-person-fill" aria-hidden="true"></i></div>
+                {{ form.assigned_to }}
+            </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="assigned_team" class="col-sm-4 col-form-label">Assign Team:</label>
+        <div class="col-sm-7">
+            <div class="input-group">
+                <div class="input-group-addon"><i class="bi bi-people-fill" aria-hidden="true"></i></div>
+                {{ form.assigned_team }}
+            </div>
+        </div>
+      </div>
+      {% else %}
+      <div class="form-group row">
+        <label for="incident_types" class="col-sm-4 col-form-label">Incident Type:</label>
+        <div class="col-sm-7">
+            <div class="input-group">
+                <div class="input-group-addon"><i class="bi bi-cone"></i></div>
+                {{ form.incident_types }}
+            </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="status" class="col-sm-4 col-form-label">Status:</label>
+        <div class="col-sm-7">
+            <div class="input-group">
+                <div class="input-group-addon"><i class="bi bi-asterisk" aria-hidden="true"></i></div>
+                {{ form.status }}
+            </div>
+        </div>
+      </div>
+      {% endif %}
+      <button type="submit" style="background-color: #fff; color: #000000; border: none; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-weight: bold;">
+        {% if is_create %}
+        Create Task
+        {% else %}
+        Update Task
+        {% endif %}
+      </button> 
+    </div>
+    </fieldset>
+  </form>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+      $("#add-team-btn").click(function() {
+          // Open a new window with the URL to your add team form
+          var addTeamFormUrl = "{% url 'add_team' %}";
+          var newWindow = window.open(addTeamFormUrl, "_blank", "width=600,height=400,top=100,left=100");
+
+          // Listen for a message from the new window
+          window.addEventListener('message', function(event) {
+              var data = event.data;
+              if (data.status === 'success') {
+                  // Close the new window
+                  newWindow.close();
+              }
+          });
+      });
+  });
+
+  // Function to handle messages from child window
+  window.addEventListener('message', function(event) {
+      var data = event.data;
+      if (data.status === 'success') {
+          // Close the new window
+          window.close();
+      }
+  });
+</script>
+<style>
+  *{
+    box-sizing: border-box;
+    font-family: "Merriweather Sans", sans-serif;
+  }
+
+  #form{
+    color: whitesmoke;
+    background-color: #6499E9;
+    border-radius: 5px;
+    width: 600px;
+    margin: auto;
+    -webkit-box-shadow: -1px 3px 18px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: -1px 3px 18px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: -1px 3px 18px 0px rgba(0, 0, 0, 0.75); 
+  }
+
+  #form p{
+    font-size: 0.9em;
+  }
+
+  #form label {
+      color: black;
+  }
+
+  #form button{
+    width: 100%;
+    text-align: center;
+    color: grey;
+    background-color: whitesmoke;
+    margin-top: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+  }
+
+  @media (max-width: 767px) {
+      #form {
+        width: auto;
+        margin-left: 10px;
+        margin-right: 10px;
+        align-content: center;
+        align-items: center;
+      }
+  }
+
+</style>
+{% endblock %}
