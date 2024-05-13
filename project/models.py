@@ -8,6 +8,7 @@ class Team(models.Model):
     name = models.CharField(max_length=50)
     description = models.CharField(max_length=200, blank=True, null=True)
     members = models.ManyToManyField(User)
+    party = models.CharField(max_length=50, null=True, blank=True, default='Test')
     
     def __str__(self):
         return self.name
