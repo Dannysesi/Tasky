@@ -157,16 +157,16 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
 
 
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'dsukcfaga',
-    'API_KEY': '282991162488711',
-    'API_SECRET': 'jB1aSW-JuZlbxiJtbNMot33D460'
+    'CLOUD_NAME': os.environ.get('CLOUD_NAME'),
+    'API_KEY': os.environ.get('API_KEY'),
+    'API_SECRET': os.environ.get('API_SECRET')
 ,
 }
 
 cloudinary.config(
-    cloud_name = 'dsukcfaga',
-    api_key = '282991162488711',
-    api_secret = 'jB1aSW-JuZlbxiJtbNMot33D460'
+    cloud_name = os.environ.get('CLOUD_NAME'),
+    api_key = os.environ.get('API_KEY'),
+    api_secret = os.environ.get('API_SECRET')
 ,
 )
 
