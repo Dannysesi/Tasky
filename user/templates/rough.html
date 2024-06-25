@@ -1,0 +1,736 @@
+<form id="form">
+    <p>Create an account</p>
+ 
+    <div class="form-group">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="username">Username</label>
+            <div class="input-group">
+                <div class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></div>
+                <input type="text" id="username" class="form-control" placeholder="Enter Your Name">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <div class="input-group">
+                <div class="input-group-addon"><i class="fa fa-envelope" aria-hidden="true"></i></div>
+                <input type="email" id="email" class="form-control" placeholder="Enter Your Email">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="password1">Your Password</label>
+            <div class="input-group">
+                <div class="input-group-addon"><i class="fa fa-lock" aria-hidden="true"></i></div>
+                <input type="password" id="password1" class="form-control" placeholder="Enter Your Password">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="password2">Confirm Your Password</label>
+            <div class="input-group">
+                <div class="input-group-addon"><i class="fa fa-lock" aria-hidden="true"></i></div>
+                <input type="password" id="password2" class="form-control" placeholder="Confirm Your Password">
+            </div>
+        </div>
+
+        <div class="form-check">
+            <input class="form-check-input" type="radio" id="id_is_admin" name="is_admin">
+            <label class="form-check-label" for="id_is_admin">Join as Admin</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" id="id_is_team_lead" name="is_team_lead">
+            <label class="form-check-label" for="id_is_team_lead">Join as a Team Lead</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" id="id_is_team_member" name="is_team_member">
+            <label class="form-check-label" for="id_is_team_member">Join as a Team Member</label>
+        </div>
+    
+    <button type="submit" class="btn btn-default">Register</button>
+ </form>
+
+ <style>
+    * {
+        box-sizing: border-box;
+        font-family: "Merriweather Sans", sans-serif;
+    }
+
+    body {
+        background-color: #B0DBEE;
+    }
+
+    #form {
+        color: white;
+        background-color: #009EDF;
+        border-radius: 5px;
+        width: 400px;
+        padding: 40px;
+        margin: 150px auto;
+        -webkit-box-shadow: -1px 3px 18px 0px rgba(0, 0, 0, 0.75);
+        -moz-box-shadow: -1px 3px 18px 0px rgba(0, 0, 0, 0.75);
+        box-shadow: -1px 3px 18px 0px rgba(0, 0, 0, 0.75);
+    }
+
+    #form p {
+        font-size: 0.9em;
+    }
+
+    #form button {
+        width: 100%;
+        text-align: center;
+        color: grey;
+        margin-top: 20px;
+        border: 1px solid rgba(0, 0, 0, 0.4);
+    }
+
+    #form .form-group {
+        margin: 15px auto;
+    }
+
+    #form label {
+        font-weight: bold;
+        font-size: 0.9em;
+    }
+
+    #form .input-group {
+        border-radius: 5px;
+        -webkit-box-shadow: -1px 3px 18px 0px rgba(0, 0, 0, 0.35);
+        -moz-box-shadow: -1px 3px 18px 0px rgba(0, 0, 0, 0.35);
+        box-shadow: -1px 3px 18px 0px rgba(0, 0, 0, 0.35);
+    }
+
+    #form .input-group-addon {
+        border: none;
+        border-right: 1px solid rgba(0, 0, 0, 0.2);
+    }
+
+    #form input {
+        padding: 3px;
+        width: 100%;
+        border: none;
+        border-radius: 0 5px 5px 0;
+    }
+</style>  
+
+
+
+
+{% extends "base.html" %}
+{% block content %}
+{% load crispy_forms_tags %}
+    <div>
+        <form method="post" id="form">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="username">Username</label>
+              <div class="input-group">
+                  <div class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></div>
+                  <input type="text" id="username" class="form-control" placeholder="Enter Your Name">
+              </div>
+          </div>
+          <div class="form-group">
+            <label for="password1">Your Password</label>
+            <div class="input-group">
+                <div class="input-group-addon"><i class="fa fa-lock" aria-hidden="true"></i></div>
+                <input type="password" id="password1" class="form-control" placeholder="Enter Your Password">
+            </div>
+        </div>
+        {% if form.errors %}
+          <p class="alert alert-danger" role="alert">Invalid username or password. Please try again.</p>
+        {% endif %}
+          <p>Dont't have an account? Create one <a href="{% url 'register' %}">Here</a>!</p>
+          <div>
+            <a href="{% url 'password_reset' %}" style="text-decoration: none; margin-bottom: 20px; color: red;">Forgot password?</a>
+            </div>
+          <button type="submit" class="btn btn-primary"style='margin-top:20px'>Login</button>
+        </form>
+    </div>
+    <style>
+      *{
+        box-sizing: border-box;
+        font-family: "Merriweather Sans", sans-serif;
+      }
+
+      body{
+        background-color: #EBF3E8;
+      }
+
+      #form{
+        color: whitesmoke;
+        background-color: #B2C8BA;
+        border-radius: 5px;
+        width: 600px;
+        padding: 40px;
+        margin: 150px auto;
+        -webkit-box-shadow: -1px 3px 18px 0px rgba(0, 0, 0, 0.75);
+        -moz-box-shadow: -1px 3px 18px 0px rgba(0, 0, 0, 0.75);
+        box-shadow: -1px 3px 18px 0px rgba(0, 0, 0, 0.75); 
+      }
+
+      #form p{
+        font-size: 0.9em;
+      }
+
+      #form button{
+        width: 100%;
+        text-align: center;
+        color: grey;
+        background-color: whitesmoke;
+        margin-top: 20px;
+        border: 1px solid rgba(0, 0, 0, 0.4);
+      }
+
+    </style>
+{% endblock content %}
+
+
+rough
+
+{% extends 'base.html' %}
+{% block title %}Signup{% endblock %}
+{% block content %}
+    <div class="container mt-3">
+        <form id="form">
+          {% csrf_token %}
+            <p>Create an account</p>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></div>
+                    <input type="text" id="username" class="form-control" placeholder="Enter Your Name">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-envelope" aria-hidden="true"></i></div>
+                    <input type="email" id="email" class="form-control" placeholder="Enter Your Email">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="password1">Your Password</label>
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-lock" aria-hidden="true"></i></div>
+                    <input type="password" id="password1" class="form-control" placeholder="Enter Your Password">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="password2">Confirm Your Password</label>
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-lock" aria-hidden="true"></i></div>
+                    <input type="password" id="password2" class="form-control" placeholder="Confirm Your Password">
+                </div>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" id="id_is_admin" name="is_admin">
+                <label class="form-check-label" for="id_is_admin">Join as Admin</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" id="id_is_team_lead" name="is_team_lead">
+                <label class="form-check-label" for="id_is_team_lead">Join as a Team Lead</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" id="id_is_team_member" name="is_team_member">
+                <label class="form-check-label" for="id_is_team_member">Join as a Team Member</label>
+            </div>
+            <button type="submit" class="btn btn-default">Register</button>
+        </form>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" type="radio" id="id_is_admin" name="is_admin">
+        <label class="form-check-label" for="id_is_admin">Is Admin</label>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" type="radio" id="id_is_team_lead" name="is_team_lead">
+        <label class="form-check-label" for="id_is_team_lead">Is Team Lead</label>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" type="radio" id="id_is_team_member" name="is_team_member">
+        <label class="form-check-label" for="id_is_team_member">Is Team Member</label>
+    </div>
+    <style>
+      *{
+        box-sizing: border-box;
+        font-family: "Merriweather Sans", sans-serif;
+      }
+
+      body{
+        background-color: #EBF3E8;
+      }
+
+      #form{
+        color: whitesmoke;
+        background-color: #B2C8BA;
+        border-radius: 5px;
+        width: 600px;
+        padding: 40px;
+        margin: 60px auto;
+        -webkit-box-shadow: -1px 3px 18px 0px rgba(0, 0, 0, 0.75);
+        -moz-box-shadow: -1px 3px 18px 0px rgba(0, 0, 0, 0.75);
+        box-shadow: -1px 3px 18px 0px rgba(0, 0, 0, 0.75); 
+      }
+
+      #form p{
+        font-size: 0.9em;
+      }
+
+      #form button{
+        width: 100%;
+        text-align: center;
+        color: grey;
+        background-color: whitesmoke;
+        margin-top: 20px;
+        border: 1px solid rgba(0, 0, 0, 0.4);
+      }
+    </style>
+{% endblock %}
+
+
+
+<div class="dropdown">
+    <a class="pc-head-link head-link-primary dropdown-toggle arrow-none me-0" data-bs-toggle="dropdown" href="#"
+      role="button" aria-haspopup="false" aria-expanded="false">
+        <img src="{{ user.profile.image.url }}" alt="user-image" class="user-avatar" style="max-width: 40px; max-height: 40px; border-radius: 20px;" />
+        <span>
+            <i class="ti ti-settings"></i>
+        </span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+        <li>
+          <div class="dropdown-header">
+            <h4>{{ user.first_name|capfirst }} {{ user.last_name|capfirst }}</span></h4>
+              <p class="text-muted">
+                {% if user_roles.is_admin %}
+                <p><a class="nav-link" href="{% url 'admin:index' %}" style="color:#B2C8BA">System Admin</a></p>
+
+                {% elif user_roles.is_team_lead %}
+                    Team lead
+                {% elif user_roles.is_team_member %}
+                    Team member
+                {% endif %}
+              </p>
+              <hr />
+          </div>
+        </li>
+        <li>
+            <hr />
+            <li><a href="#" class="dropdown-item"><i class="ti ti-settings"></i><span>Edit Profile</span></a></li>
+            <li><a href="#" class="dropdown-item"><i class="ti ti-user"></i><span>Account Settings</span></a></li>
+            <li><a href="#" class="dropdown-item"><i class="ti ti-key"></i><span>Change Password</span></a></li>
+            <li><a href="%" class="dropdown-item"><i class="ti ti-logout"></i><span>Logout</span></a></li>
+          </div>
+        </li>
+    </ul>
+  </div>
+</div>
+
+
+<div class="container">
+    <div class="card" style="margin-top: 70px;">
+        <h1 class="card-header">{{ task.title|capfirst }}</h1>
+        <div class="card-body">
+            <p class="card-text">Created By: {{ task.created_by|capfirst }}</p>
+            <p class="card-text">Description: {{ task.description|lower|capfirst }}</p>
+            <p class="card-text">Deadline Date: {{ task.deadline }}</p>
+            <p class="card-text">Status: {{ task.status }}</p>
+            <p class="card-text">Assigned To: {{ task.assigned_to }}</p>
+        </div>
+        <div class="card-footer">
+            {% if task.created_by == user or task.assigned_to == user %}
+            <a href="{% url 'task_update' pk=task.pk %}" class="btn btn-outline-primary">Update</a>
+            <a href="{% url 'task-delete' pk=task.pk %}" class="btn btn-outline-danger">Delete</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<p class="text-muted">
+    {% if user_roles.is_admin %}
+    <marquee behavior="vertical" direction="left" style="margin-left: -25px; margin-right: -25px;">ADMIN DASHBAORD</marquee>
+    {% elif user_roles.is_team_lead %}
+    Team lead
+    {% elif user_roles.is_team_member %}
+    Team member
+    {% endif %}
+</p>
+
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <div style="margin-left: -25px; margin-right: -25px;">
+      <nav class="navbar navbar-light fixed-top" style="background-color: #31363F; color:#EBF3E8; margin-bottom: -30px; margin-left: 205px;">
+        <div class="container-fluid">
+          <form class="d-flex">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-light" type="submit"><i class="bi bi-search"></i> Search</button>
+          </form>
+          {% if user.is_authenticated %}
+          <div class="dropdown">
+            <a href="#" class="pc-head-link head-link-primary dropdown-toggle arrow-none me-0" data-bs-toggle="dropdown" role="button" aria-haspopup="false" aria-expanded="false">
+              <img src="{{ user.profile.image.url }}" alt="user-image" class="user-avatar" style="max-width: 40px; max-height: 40px; border-radius: 20px;">
+              <span>
+                <i class="bi bi-gear"></i>
+              </span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+              <li>
+                <div class="dropdown-header">
+                  <h5>{{ user.first_name|capfirst }} {{ user.last_name|capfirst }}</h5><hr>
+                  <p>
+                    {% if user_roles.is_admin %}
+                    <a class="nav-link" href="{% url 'admin:index' %}" style="color:#31363F"><i class="bi bi-person-vcard-fill"></i> System Admin</a>
+                    {% elif user_roles.is_team_lead %}
+                        Team lead
+                    {% elif user_roles.is_team_member %}
+                        Team member
+                    {% endif %}
+                  </p>
+                </div>
+              </li>
+              <li>
+                <hr>
+                <li><a href="{% url 'profile' %}" class="dropdown-item"><i class="bi bi-person-fill"></i> Edit Profile</a></li>
+                <li><a href="#" class="dropdown-item"><i class="bi bi-sliders2-vertical"></i> <span>Account Settings</span></a></li>
+                <li><a href="{% url 'password_reset' %}" class="dropdown-item"><i class="bi bi-key"></i> <span>Change Password</span></a></li>
+                <li><a href="{% url 'logout' %}" class="dropdown-item"><i class="bi bi-power"></i> <span>Logout</span></a></li>
+              </li>
+            </ul>
+          </div>
+          {% endif %}
+        </div>
+      </nav>
+    </div>
+      {% block content %}
+      {% if deadline_alert %}
+      <div class="alert alert-danger" role="alert" style="margin-top: 60px; margin-bottom: -50px;">
+        The deadline for {{ deadline_alert.title }} is approaching!!!
+      </div>
+      {% endif %}
+      <div class="row" style="margin-top: 60px; background-color: #739072; padding-top: 20px; padding-bottom: 70px; margin-left: -25px; margin-right: -25px; margin-bottom: 30px;">
+        <div class="col" style="max-height: 100px; min-height: 100px;">
+          <div class="card border-light mb-3" style="box-shadow: 0 8px 12px rgba(0,0,0,0.1); max-height: 150px; min-height: 150px;">
+            <p class="card-header">
+              <span class="header-text" style="margin-right: 20px;">Tasks passed it's deadline</span><i class="bi bi-exclamation-octagon" style="background-color: #EBF3E8; border-radius: 5px; padding: 3px;"></i></p>
+            <div class="card-body">
+              <h5 class="card-title">{{ tasks_passed_deadline }}</h5>
+              <p class="card-text">Out of: {{ out_of }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col" style="max-height: 100px; min-height: 100px;">
+          <div class="card border-light mb-3" style="box-shadow: 0 8px 12px rgba(0,0,0,0.1); max-height: 150px; min-height: 150px;">
+            <p class="card-header">
+              <span class="header-text" style="margin-right: 110px;">Active Tasks</span><i class="bi bi-bar-chart" style="background-color: #EBF3E8; border-radius: 5px; padding: 3px;"></i></p>
+            <div class="card-body">
+              <h5 class="card-title">{{ active_tasks }}</h5>
+              <p class="card-text">Out of: {{ out_of }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col" style="max-height: 100px; min-height: 100px;">
+          <div class="card border-light mb-3" style="box-shadow: 0 8px 12px rgba(0,0,0,0.1); max-height: 150px; min-height: 150px;">
+            <p class="card-header">
+              <span class="header-text" style="margin-right: 80px;">Completed Tasks</span><i class="bi bi-check2-circle" style="background-color: #EBF3E8; border-radius: 5px; padding: 3px;"></i></p>
+            <div class="card-body">
+              <h5 class="card-title">{{ completed_tasks}}</h5>
+              <p class="card-text">Out of: {{ out_of }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col" style="max-height: 100px; min-height: 100px;">
+          <div class="card border-light mb-3" style="box-shadow: 0 8px 12px rgba(0,0,0,0.1); max-height: 150px; min-height: 150px;">
+            <p class="card-header"><span class="header-text" style="margin-right: 80px;">Incident Count</span><i class="bi bi-activity" style="background-color: #EBF3E8; border-radius: 5px; padding: 3px;"></i></p>
+            <div class="card-body">
+              <div class="row">
+                <p class="card-text col" style="margin-bottom: 10px;">Medium: {{ incident_type.medium }}/{{ out_of }}</p>
+                <p class="card-text col" style="margin-bottom: 10px;">High: {{ incident_type.high }}/{{ out_of }}</p>
+              </div>
+              <div class="row">
+                <p class="card-text col" style="margin-bottom: -5px; padding-left: 80px;">Critical: {{ incident_type.critical }}/{{ out_of }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex-wrap" style="display: flex; flex-wrap: wrap; align-items: center; background-color: #EBF3E8; padding: 20px; margin-bottom: 0px; margin-left: -15px; margin:-15px;">
+        {% if assigned_tasks %}
+          <h2 style="background-color: #EBF3E8; padding: 20px; text-align: left;">Tasks Assigned to You</h2>
+        {% else %}
+        <h2 style="background-color: #EBF3E8; padding: 20px; text-align: left;">No tasks Assigned to You</h2>
+        {% endif %}
+          {% if latest_assigned_task %}
+          <button type="button" class="btn btn-primary position-relative" id="liveToastBtn" style="margin-top: 10px; margin-left: auto;">Latest Task <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">1</span></button>
+          
+          <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+            <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+              <div class="toast-header" style="background-color: #EBF3E8;">
+                <img src="..." class="rounded me-2" alt="...">
+                <strong class="me-auto">Latest Assigned Task</strong>
+                <small>Deadline: {{ latest_assigned_task.deadline }}</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+              </div>
+              <div class="toast-body">
+                  Title: {{ latest_assigned_task.title|capfirst }}
+              </div>
+            </div>
+          </div>
+          <script>
+          $(document).ready(function() {
+              $('#liveToastBtn').click(function() {
+                  $('#liveToast').toast('show');
+              });
+          });
+          </script>
+          {% endif %}
+      </div>
+      <div class="container" style="margin-top: 30px;">
+        {% if user_roles.is_admin %}
+        <marquee behavior="vertical" direction="left" style="margin-left: -25px; margin-right: -25px;">ADMIN DASHBAORD</marquee>
+        {% elif user_roles.is_team_lead %}
+        <marquee behavior="vertical" direction="left" style="margin-left: -25px; margin-right: -25px;">Team lead DASHBAORD</marquee>
+        {% elif user_roles.is_team_member %}
+        <marquee behavior="vertical" direction="left" style="margin-left: -25px; margin-right: -25px;">Team member DASHBAORD</marquee>
+        {% endif %}
+        {% if assigned_tasks %}
+          <ul>
+            {% for task in assigned_tasks %}
+              <li>
+                <a href="{% url 'task_detail' task.id %}" class="task-title">{{ task.title|capfirst }}</a>
+              </li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p>No tasks assigned to you.</p>
+        {% endif %}
+        {% if user_roles.is_admin %}
+            <p>You are an admin.</p>
+        {% elif user_roles.is_team_lead %}
+            <p>You are a team lead.</p>
+        {% elif user_roles.is_team_member %}
+            <p>You are a team member.</p>
+        {% endif %}
+        {% endblock %}
+      </div>
+    </div>
+  </main>
+
+
+      
+  <div class="l-navbar" id="nav-bar">
+    <nav class="nav">
+      <div> <a href="#" class="nav_logo"> <i class='bx bx-layer nav_logo-icon'></i> <span class="nav_logo-name">Leinad_Sama</span> </a>
+        <div class="nav-list"></div>
+            <a class="nav-link active" aria-current="page" href="{% url 'home' %}" style="margin-top: 30px; color: #EBF3E8;"><i class="bi bi-house-door-fill"></i> Home</a>
+            <a class="nav-link" href="{% url 'task' %}" style="color:#EBF3E8;"> <i class="bi bi-list-task"></i> Task</a>
+            <a class="nav-link" href="{% url 'team' %}" style="color:#EBF3E8;"><i class="bi bi-people-fill"></i> Teams</a>
+            <a class="nav-link" href="{% url 'admin:index' %}" style="color:#EBF3E8;">Admin</a>
+          {% if user.is_authenticated %}
+            <a class="nav-link" href="{% url 'logout' %}" style="color:#EBF3E8;"><i class="bi bi-power"></i> Logout</a>
+          {% else %}
+            <a class="nav-link" href="{% url 'register' %}" style="color:#EBF3E8;"><i class="bi bi-vector-pen"></i> Register</a>
+            <a class="nav-link" href="/login" style="margin-bottom: 400px;color: #EBF3E8;"> <i class="bi bi-bezier2"></i> Login</a>
+          {% endif %}
+            <a class="nav-link disabled" href="#" aria-disabled="true" style="color: gray; pointer-events: none;"><i class="bi bi-arrow-counterclockwise"></i> Disabled</a>
+      </div> 
+    </nav>
+
+    <p class="card-text callout-info">Medium: {{ incident_type.medium }}/{{ out_of }} </p>
+    <p class="card-text callout-warning">High: {{ incident_type.high }}/{{ out_of }} </p>
+
+
+    <style>
+        .footer{width: 105.5%;height: var(--header-height);position: sticky;left: 0;display: flex;align-items: center;justify-content: space-between;padding: 0 1rem;background-color: #EBF3E8;transition: .5s; flex-shrink: 0;}.footer .container {display: flex;justify-content: space-between;  width: 100%; margin-left: -50px; color: var(--first-color);font-size: 1rem;cursor: pointer; bottom: 0;}
+        .footer .container .row {width: 100%}.footer .container .row .col {width: 50%}.footer .container .row .col.text-left {text-align: left}.footer .container .row .col.text-right {text-align: right;}@media screen and (max-width: 767px) {.footer .container {flex-direction: column;align-items: center;}.footer .container .row .col {width: 100%;text-align: center;margin-bottom: 0.5rem;}.footer .container .row .col.text-right {margin-top: 0.5rem;}}
+      </style>
+<div class="container">
+  <div class="row" style="margin-top: 60px; background-color: #739072; padding-top: 20px; padding-bottom: 70px;margin-right: 10px; margin-bottom: 80px;">
+    <div class="col-md-3" style="max-height: 100px; min-height: 100px;">
+      <div class="card border-light mb-3" style="box-shadow: 0 8px 12px rgba(0,0,0,0.1); max-height: 150px; min-height: 150px; margin-bottom:30px;">
+        <p class="card-header">
+          <span class="header-text">Tasks passed it's deadline</span><i class="bi bi-exclamation-octagon" style="background-color: #EBF3E8; border-radius: 5px; padding: 3px;"></i></p>
+        <div class="card-body">
+          <h5 class="card-title">{{ tasks_passed_deadline }}</h5>
+          <p class="card-text">Out of: {{ out_of }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3" style="max-height: 100px; min-height: 100px;">
+      <div class="card border-light mb-3" style="box-shadow: 0 8px 12px rgba(0,0,0,0.1); max-height: 150px; min-height: 150px; margin-bottom:30px;">
+        <p class="card-header">
+          <span class="header-text" style="margin-right: 85px;">Active Tasks</span><i class="bi bi-bar-chart" style="background-color: #EBF3E8; border-radius: 5px; padding: 3px;"></i></p>
+        <div class="card-body">
+          <h5 class="card-title">{{ active_tasks }}</h5>
+          <p class="card-text">Out of: {{ out_of }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3" style="max-height: 100px; min-height: 100px;">
+      <div class="card border-light mb-3" style="box-shadow: 0 8px 12px rgba(0,0,0,0.1); max-height: 150px; min-height: 150px; margin-bottom:30px;">
+        <p class="card-header">
+          <span class="header-text" style="margin-right: 50px;">Completed Tasks</span><i class="bi bi-check2-circle" style="background-color: #EBF3E8; border-radius: 5px; padding: 3px;"></i></p>
+        <div class="card-body">
+          <h5 class="card-title">{{ completed_tasks}}</h5>
+          <p class="card-text">Out of: {{ out_of }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3" style="max-height: 100px; min-height: 100px;">
+      <div class="card border-light mb-3" style="box-shadow: 0 8px 12px rgba(0,0,0,0.1); max-height: 150px; min-height: 150px; margin-bottom:30px;">
+        <p class="card-header"><span class="header-text" style="margin-right: 70px;">Incident Count</span><i class="bi bi-activity" style="background-color: #EBF3E8; border-radius: 5px; padding: 3px;"></i></p>
+        <div class="card-body">
+          <h5 class="card-title">Priority</h5>
+          <p class="card-text callout-danger">Critical: {{ incident_type.critical }}/{{ out_of }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>  
+
+
+<div class="form-group">
+  <label for="email">Email</label>
+  <div class="input-group">
+      <div class="input-group-addon"><i class="fa fa-envelope" aria-hidden="true"></i></div>
+      <input type="email" id="email" class="form-control" name="email" placeholder="Enter Your Email">
+  </div>
+</div>
+
+
+
+
+<div class="form-group">
+  <label for="username">Username</label>
+  <div class="input-group">
+      <div class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></div>
+      <input type="text" id="username" class="form-control" name="username" placeholder="Enter Your Name">
+  </div>
+</div>
+<div class="form-group">
+  <label for="email">Email</label>
+  <div class="input-group">
+      <div class="input-group-addon"><i class="fa fa-envelope" aria-hidden="true"></i></div>
+      <input type="email" id="email" class="form-control" name="email" placeholder="Enter Your Email">
+  </div>
+</div>
+<div class="form-group">
+  <label for="password1">Your Password</label>
+  <div class="input-group">
+      <div class="input-group-addon"><i class="fa fa-lock" aria-hidden="true"></i></div>
+      <input type="password" id="password1" class="form-control" name="password1" placeholder="Enter Your Password">
+  </div>
+</div>
+<div class="form-group">
+  <label for="password2">Confirm Your Password</label>
+  <div class="input-group">
+      <div class="input-group-addon"><i class="fa fa-lock" aria-hidden="true"></i></div>
+      <input type="password" id="password2" class="form-control" name="password2" placeholder="Confirm Your Password">
+  </div>
+</div>
+
+
+
+
+
+{% extends 'base.html' %}
+{% block content %}
+<div class="content-section" style="background-color: #98e4ff25;">
+    <div style="text-align: center;">
+        <img src="{{ user.profile.image.url }}" style="border-radius: 10px; height: 300px; width: 300px; margin-top: 50px;" alt="User Profile Image">
+        <div style="text-align: center;">
+            <h2>{{ user.username }}</h2>
+            <p>{{ user.email }}</p>
+        </div>
+    </div>
+    <form method="POST" enctype="multipart/form-data" id="form" class="container">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="mb-4" style="font-size: 1.5em; font-weight: bold; color: #333;">Profile Info</legend>
+            <div class="form-group">
+                <label for="first_name">First_Name:</label>
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="bi bi-person-check" aria-hidden="true"></i></div>
+                    {{ u_form.first_name }}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="last_name">Last_Name:</label>
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="bi bi-person-check" aria-hidden="true"></i></div>
+                    {{ u_form.last_name }}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="bi bi-person-check" aria-hidden="true"></i></div>
+                    {{ u_form.username }}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-envelope" aria-hidden="true" ></i></div>
+                    {{ u_form.email }}
+                </div>
+            </div>
+            <div style="margin-bottom: 30px; color: #fff; text-decoration: none;">
+                {{ p_form }}
+            </div>
+        </fieldset>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Update</button>
+        </div>
+    </form>
+
+<style>
+    *{
+      box-sizing: border-box;
+      font-family: "Merriweather Sans", sans-serif;
+    }
+
+    body{
+      background-color: #98e4ff64;
+    }
+
+    #form{
+      color: whitesmoke;
+      background-color: #6499E9;
+      border-radius: 5px;
+      width: 600px;
+      padding: 40px;
+      margin: 60px auto;
+      -webkit-box-shadow: -1px 3px 18px 0px rgba(0, 0, 0, 0.75);
+      -moz-box-shadow: -1px 3px 18px 0px rgba(0, 0, 0, 0.75);
+      box-shadow: -1px 3px 18px 0px rgba(0, 0, 0, 0.75); 
+    }
+
+    #form p{
+      font-size: 0.9em;
+    }
+
+    #form label {
+        color: black;
+    }
+
+    #form button{
+      width: 100%;
+      text-align: center;
+      color: grey;
+      background-color: whitesmoke;
+      margin-top: 20px;
+      border: 1px solid rgba(0, 0, 0, 0.4);
+    }
+
+  </style>
+{% endblock %}
+
+
+<div class="role">
+  {% if user_roles.is_admin %}
+      <p class="text-success">You are an admin.</p>
+  {% elif user_roles.is_team_lead %}
+      <p class="text-primary">You are a team lead.</p>
+  {% elif user_roles.is_team_member %}
+      <p class="text-info">You are a team member.</p>
+  {% endif %} 
+</div>
